@@ -18878,7 +18878,7 @@ Search list 2
   min-height: 100vh;
   transition: all 0.3s;
 
-  background-color: #f7fafc;
+  /* background-color: #f7fafc; */
 }
 
 #content.active {

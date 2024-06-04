@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   get_admin_handmade,
-  get_admin_handmade_authorization,
   update_admin_handmade_authorization,
 } from "../../redux/actions/adminAction";
 
@@ -12,7 +11,7 @@ const HandMadeApproval = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(get_admin_handmade());
-  }, []);
+  }, [dispatch]);
 
   const handleApproval = (id) => {
     dispatch(update_admin_handmade_authorization(id));
@@ -27,14 +26,9 @@ const HandMadeApproval = () => {
           </div>
           <div className="card aon-card">
             <div className="card-body aon-card-body">
-              {/* Week Tabs*/}
               <div className="sf-availability-times-tab m-b50">
                 <div className="sf-custom-tabs sf-custom-new">
-                  {/*Tabs*/}
-
-                  {/*Tabs Content*/}
                   <div className="tab-content">
-                    {/*Upcoming*/}
                     <div id="Upcoming" className="tab-pane active">
                       <div className="sf-tabs-content">
                         <div className="sf-bs-data-table">
@@ -124,64 +118,70 @@ const HandMadeApproval = () => {
                                     <tbody>
                                       {handMadeUsers
                                         ?.filter((el) => !el.authorized)
-                                        .map((el, index) => {
-                                          return (
-                                            <tr
-                                              key={index}
-                                              className={`${
-                                                index / 2 === 0 ? "even" : "odd"
-                                              }`}
+                                        .map((el, index) => (
+                                          <tr
+                                            key={el._id || index}
+                                            className={`${
+                                              index % 2 === 0 ? "even" : "odd"
+                                            }`}
+                                          >
+                                            <td
+                                              style={{
+                                                padding: "20px",
+                                              }}
                                             >
-                                              <td
-                                                style={{
-                                                  padding: "20px",
-                                                }}
+                                              {el.fullName || "N/A"}
+                                            </td>
+                                            <td
+                                              style={{
+                                                padding: "20px",
+                                              }}
+                                            >
+                                              {el.email || "N/A"}
+                                            </td>
+                                            <td
+                                              style={{
+                                                padding: "20px",
+                                              }}
+                                            >
+                                              {el.cin || "N/A"}
+                                            </td>
+                                            <td
+                                              style={{
+                                                padding: "20px",
+                                              }}
+                                            >
+                                              {el.job?.jobName || "N/A"}
+                                            </td>
+                                            <td
+                                              style={{
+                                                padding: "20px",
+                                              }}
+                                            >
+                                              <a
+                                                href={el.diplome}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
                                               >
-                                                {el.fullName}
-                                              </td>
-                                              <td
-                                                style={{
-                                                  padding: "20px",
-                                                }}
+                                                Diplome Image
+                                              </a>
+                                            </td>
+                                            <td
+                                              style={{
+                                                padding: "20px",
+                                              }}
+                                            >
+                                              <button
+                                                type="button"
+                                                onClick={() =>
+                                                  handleApproval(el._id)
+                                                }
                                               >
-                                                {el.email}
-                                              </td>
-                                              <td
-                                                style={{
-                                                  padding: "20px",
-                                                }}
-                                              >
-                                                {el.cin}
-                                              </td>
-                                              <td
-                                                style={{
-                                                  padding: "20px",
-                                                }}
-                                              >
-                                                <a
-                                                  href={el.diplome}
-                                                  target="_blank"
-                                                >
-                                                  Diplome Image
-                                                </a>
-                                              </td>
-                                              <td
-                                                style={{
-                                                  padding: "20px",
-                                                }}
-                                              >
-                                                <button
-                                                  type="submit"
-                                                  onClick={() =>
-                                                    handleApproval(el._id)
-                                                  }
-                                                >
-                                                  Approval
-                                                </button>
-                                              </td>
-                                            </tr>
-                                          );
-                                        })}
+                                                Approval
+                                              </button>
+                                            </td>
+                                          </tr>
+                                        ))}
                                     </tbody>
                                   </table>
                                 </div>

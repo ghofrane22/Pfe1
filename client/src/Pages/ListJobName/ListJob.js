@@ -10,38 +10,7 @@ import Swal from "sweetalert2";
 /////////////////////////////
 const ListJob = () => {
   const [listjobname, setlistjobname] = useState([]);
-  //   console.log(listjobname, "liste jobname ******");
 
-  //get all
-  //   const getAlljobname = () => {
-  //     axiosApi
-  //       .get("http://localhost:5000/users/items?items=Student")
-  //       .then((res) => {
-  //         //console.log(res, "response users ****************")
-  //         setlistjobname(res.data.data);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err.message);
-  //       });
-  //   };
-
-  //   useEffect(() => {
-  //     getAlljobname();
-  //   }, []);
-
-  //deletejobname
-  //   const deletejobname = (id) => {
-  //     axiosApi
-  //       .delete("http://localhost:5000/jobname/" + id)
-  //       .then(() => {
-  //         let arr = [...listjobname];
-  //         setlistjobname(arr.filter((c) => c._id !== id));
-  //       })
-  //       .catch((err) => {
-  //         console.log(err.message);
-  //       });
-  //   };
-  //   ////////////////////////////////////////////////////
   const columns = [
     {
       title: "Job Name",

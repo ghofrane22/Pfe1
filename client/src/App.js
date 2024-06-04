@@ -34,6 +34,7 @@ import ClientUsers from "./Pages/Admin/ClientUsers";
 import HandMadeApproval from "./Pages/Admin/HandMadeApproval";
 import Category from "./Pages/Admin/Category";
 import Offers from "./Pages/Admin/Offers";
+import ClientProfile from "./Pages/client/ClientProfile";
 
 function App() {
   const { user } = useSelector((state) => state.LoginReducer);
@@ -84,6 +85,17 @@ function App() {
             <PrivateRoute user={"handMade"}>
               <Layout>
                 <HandMadeProfile />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/client/profile"
+          element={
+            <PrivateRoute user={"client"}>
+              <Layout>
+                <ClientProfile />
               </Layout>
             </PrivateRoute>
           }

@@ -5,9 +5,11 @@ import { get_admin_handmade } from "../../redux/actions/adminAction";
 const HandMadeUsers = () => {
   const { handMadeUsers } = useSelector((state) => state.adminReducer);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(get_admin_handmade());
-  }, []);
+  }, [dispatch]);
+
   return (
     <div className="page-wraper">
       <div id="content">
@@ -96,8 +98,9 @@ const HandMadeUsers = () => {
                                           return (
                                             <tr
                                               className={`${
-                                                index / 2 === 0 ? "even" : "odd"
-                                              }`}
+                                                index % 2 === 0 ? "even" : "odd"
+                                              }`} // corrected to index % 2
+                                              key={el._id} // added key prop
                                             >
                                               <td
                                                 style={{
@@ -125,7 +128,8 @@ const HandMadeUsers = () => {
                                                   padding: "20px",
                                                 }}
                                               >
-                                                {el.job.jobName}
+                                                {el.job?.jobName || "N/A"}{" "}
+                                                {/* added null check */}
                                               </td>
                                             </tr>
                                           );

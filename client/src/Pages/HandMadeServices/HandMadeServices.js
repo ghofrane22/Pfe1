@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { get_hand_Made_Services } from "../../redux/actions/Actions";
 import { Link } from "react-router-dom";
+
 const HandMadeServices = () => {
   const { handMadeServices } = useSelector((state) => state.LoginReducer);
 
@@ -9,7 +10,8 @@ const HandMadeServices = () => {
 
   useEffect(() => {
     dispatch(get_hand_Made_Services());
-  }, []);
+  }, [dispatch]);
+
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
@@ -24,11 +26,12 @@ const HandMadeServices = () => {
       handMadeServices?.filter(
         (el) =>
           el.fullName.toLowerCase().includes(search.toLowerCase()) &&
+          el.job &&
           el.job.jobName.toLowerCase().includes(category.toLowerCase()) &&
           el.city.toLowerCase().includes(location.toLowerCase())
       )
     );
-  }, [search, category, location]);
+  }, [search, category, location, handMadeServices]);
 
   return (
     <div className="aon-page-jobs-wrap">
@@ -37,7 +40,7 @@ const HandMadeServices = () => {
           {/* Side bar start */}
           <div className="col-lg-4 col-md-12">
             <aside className="side-bar sf-rounded-sidebar">
-              {/*Find a Job*/}
+              {/* Find a Job */}
               <div className="sf-job-sidebar-blocks">
                 <h4 className="sf-title">Find a Services</h4>
                 <div className="form-group">
@@ -53,7 +56,7 @@ const HandMadeServices = () => {
                   Search
                 </button>
               </div>
-              {/*Location*/}
+              {/* Location */}
               <div className="sf-job-sidebar-blocks">
                 <h4 className="sf-title">Location</h4>
                 <div className="form-group sf-location-ring-wrap">
@@ -73,7 +76,7 @@ const HandMadeServices = () => {
                   <a href="#" className="sf-location-ring" />
                 </div>
               </div>
-              {/*Category*/}
+              {/* Category */}
               <div className="sf-job-sidebar-blocks">
                 <h4 className="sf-title">Category</h4>
                 <div className="category-select">
@@ -95,15 +98,14 @@ const HandMadeServices = () => {
           {/* Side bar END */}
           {/* Right part start */}
           <div className="col-lg-8 col-md-12">
-            {/*Showing results topbar Start*/}
+            {/* Showing results topbar Start */}
             <div className="aon-search-result-top flex-wrap d-flex justify-content-between">
               <div className="aon-search-result-title">
                 <h5>
                   <span>({filtredServices?.length})</span> Services
                 </h5>
               </div>
-
-              {/*Showing results topbar End*/}
+              {/* Showing results topbar End */}
             </div>
             <ul className="job_listings job_listings-two">
               {filtredServices?.map((el, index) => {
@@ -121,7 +123,7 @@ const HandMadeServices = () => {
                     </div>
                     <div className="job-comapny-info">
                       <div className="position">
-                        <h3>{el.job.jobName}</h3>
+                        <h3>{el.job?.jobName}</h3>
                         <div className="company">
                           <strong>{el.fullName}</strong>
                         </div>

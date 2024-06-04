@@ -5,26 +5,23 @@ import { get_offers_list } from "../../redux/actions/adminAction";
 const Offers = () => {
   const { offers } = useSelector((state) => state.adminReducer);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(get_offers_list());
-  }, []);
+  }, [dispatch]);
+
   return (
     <div className="page-wraper">
       <div id="content">
         <div className="content-admin-main">
           <div className="aon-admin-heading">
-            <h4>HandMade Users</h4>
+            <h4>Offers</h4>
           </div>
           <div className="card aon-card">
             <div className="card-body aon-card-body">
-              {/* Week Tabs*/}
               <div className="sf-availability-times-tab m-b50">
                 <div className="sf-custom-tabs sf-custom-new">
-                  {/*Tabs*/}
-
-                  {/*Tabs Content*/}
                   <div className="tab-content">
-                    {/*Upcoming*/}
                     <div id="Upcoming" className="tab-pane active">
                       <div className="sf-tabs-content">
                         <div className="sf-bs-data-table">
@@ -101,54 +98,61 @@ const Offers = () => {
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      {offers?.map((el, index) => {
-                                        return (
-                                          <tr
-                                            className={`${
-                                              index / 2 === 0 ? "even" : "odd"
-                                            }`}
+                                      {offers?.map((el, index) => (
+                                        <tr
+                                          key={el._id || index}
+                                          className={`${
+                                            index % 2 === 0 ? "even" : "odd"
+                                          }`}
+                                        >
+                                          <td
+                                            style={{
+                                              padding: "20px",
+                                            }}
                                           >
-                                            <td
-                                              style={{
-                                                padding: "20px",
-                                              }}
-                                            >
-                                              {el.client.fullName}
-                                            </td>
-                                            <td
-                                              style={{
-                                                padding: "20px",
-                                              }}
-                                            >
-                                              {el.handMade.fullName}
-                                            </td>
-                                            <td
-                                              style={{
-                                                padding: "20px",
-                                              }}
-                                            >
-                                              {el.description}
-                                            </td>
-                                            <td
-                                              style={{
-                                                padding: "20px",
-                                              }}
-                                            >
-                                              {el.time.slice(8, 10)}-
-                                              {el.time.slice(5, 7)}-
-                                              {el.time.slice(0, 4)} AT{" "}
-                                              {el.time.slice(11, 16)}
-                                            </td>
-                                            <td
-                                              style={{
-                                                padding: "20px",
-                                              }}
-                                            >
-                                              {el.status}
-                                            </td>
-                                          </tr>
-                                        );
-                                      })}
+                                            {el.client?.fullName || "N/A"}
+                                          </td>
+                                          <td
+                                            style={{
+                                              padding: "20px",
+                                            }}
+                                          >
+                                            {el.handMade?.fullName || "N/A"}
+                                          </td>
+                                          <td
+                                            style={{
+                                              padding: "20px",
+                                            }}
+                                          >
+                                            {el.description || "N/A"}
+                                          </td>
+                                          <td
+                                            style={{
+                                              padding: "20px",
+                                            }}
+                                          >
+                                            {el.time
+                                              ? `${el.time.slice(
+                                                  8,
+                                                  10
+                                                )}-${el.time.slice(
+                                                  5,
+                                                  7
+                                                )}-${el.time.slice(
+                                                  0,
+                                                  4
+                                                )} AT ${el.time.slice(11, 16)}`
+                                              : "N/A"}
+                                          </td>
+                                          <td
+                                            style={{
+                                              padding: "20px",
+                                            }}
+                                          >
+                                            {el.status || "N/A"}
+                                          </td>
+                                        </tr>
+                                      ))}
                                     </tbody>
                                   </table>
                                 </div>

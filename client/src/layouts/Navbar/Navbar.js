@@ -102,11 +102,18 @@ const Navbar = () => {
                       </Link>
                     </li>
                     {user?.role === "client" ? (
-                      <li>
-                        <Link to="/client/offer-list">
-                          <i className="feather-sliders" /> Offer List
-                        </Link>
-                      </li>
+                      <>
+                        <li>
+                          <Link to="/client/offer-list">
+                            <i className="feather-sliders" /> Offer List
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/client/profile">
+                            <i className="feather-sliders" /> profile
+                          </Link>
+                        </li>
+                      </>
                     ) : user?.role == "handMade" ? (
                       <>
                         <li>
